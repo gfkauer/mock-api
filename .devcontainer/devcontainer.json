@@ -1,0 +1,52 @@
+// Update the VARIANT arg in docker-compose.yml to pick a Node.js version
+{
+  "name": "to-do API",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  // Set *default* container specific settings.json values on container create.
+  "settings": {
+    "terminal.integrated.profiles.windows": {
+      "PowerShell": {
+        "source": "PowerShell",
+        "icon": "terminal-powershell"
+      },
+      "Command Prompt": {
+        "path": [
+          "${env:windir}\\Sysnative\\cmd.exe",
+          "${env:windir}\\System32\\cmd.exe"
+        ],
+        "icon": "terminal-cmd"
+      },
+      "Git Bash": {
+        "path": [
+          "C:\\Program Files\\Git\\bin\\bash.exe"
+        ],
+        "source": "Git Bash",
+        "icon": "terminal-bash"
+      },
+    },
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "editor.formatOnSave": true,
+    // Configuration for codestats addon
+    "codestats.apikey": "SFMyNTY.WjJacllYVmxjZz09IyNNVFU1TURjPQ.FICg3KjgHdAK-ZDVsxI2e_-0Hv0AHIO1OrOSKxyJupE",
+    "codestats.username": "gfkauer"
+  },
+  // Add the IDs of extensions you want installed when the container is created.
+  "extensions": [
+    "dbaeumer.vscode-eslint",
+    "mongodb.mongodb-vscode",
+    "riussi.code-stats-vscode",
+    "wakatime.vscode-wakatime",
+    "arjun.swagger-viewer"
+  ],
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [
+    3000,
+    27017
+  ],
+  // Use 'postCreateCommand' to run commands after the container is created.
+  // "postCreateCommand": "yarn install",
+  // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+  "remoteUser": "node"
+}
