@@ -38,7 +38,8 @@
     "mongodb.mongodb-vscode",
     "riussi.code-stats-vscode",
     "wakatime.vscode-wakatime",
-    "arjun.swagger-viewer"
+    "arjun.swagger-viewer",
+    "ethansk.restore-terminals"
   ],
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   "forwardPorts": [
