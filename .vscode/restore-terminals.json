@@ -1,0 +1,33 @@
+{
+    "artificialDelayMilliseconds": 300,
+    "keepExistingTerminalsOpen": false,
+    "runOnStartup": true,
+    "terminals": [
+        {
+            "splitTerminals": [
+                {
+                    "name": "Git",
+                    "commands": [
+                        "git status"
+                    ]
+                }
+            ]
+        },
+        {
+            "splitTerminals": [
+                {
+                    "name": "Generic",
+                    "commands": [
+                        "cd api"
+                    ]
+                },
+                {
+                    "name": "Testes",
+                    "commands": [
+                        "cd api && npm run test"
+                    ]
+                }
+            ]
+        }
+    ]
+}
