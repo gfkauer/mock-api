@@ -109,7 +109,7 @@ describe('Routes: Products', () => {
                 request
                     .delete(`/products/${defaultId}`)
                     .end((err, res) => {
-                        expect(res.status).to.eql(200);
+                        expect(res.status).to.eql(204);
                         done(err);
                     });
             });
