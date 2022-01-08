@@ -65,6 +65,58 @@ describe('Controllers: Products', () => {
             await productsController.getById(request, response);
 
             sinon.assert.calledWith(response.send, defaultProduct);
+        });
+    });
+
+    describe('create() product', () => {
+        it('should save a new product successfuly', async () => {
+            const requestWithBody = Object.assign(
+                {},
+                { body: defaultProduct[0] },
+                defaultRequest
+            );
+            const response = {
+                send: sinon.spy(),
+                status: sinon.stub()
+            };
+            class fakeProduct {
+                save() { }
+            };
+
+            response.status.withArgs(201).returns(response);
+            sinon
+                .stub(fakeProduct.prototype, 'save')
+                .withArgs()
+                .resolves();
+
+            const productsController = new ProductsController(fakeProduct);
+
+            await productsController.create(requestWithBody, response);
+            sinon.assert.calledWith(response.send);
+        });
+
+        context('when an error occurs', () => {
+            it('should return 422', async () => {
+                const response = {
+                    send: sinon.spy(),
+                    status: sinon.stub()
+                };
+
+                class fakeProduct {
+                    save() { }
+                }
+
+                response.status.withArgs(422).returns(response);
+                sinon
+                    .stub(fakeProduct.prototype, 'save')
+                    .withArgs()
+                    .rejects({ message: 'Error' });
+
+                const productsController = new ProductsController(fakeProduct);
+
+                await productsController.create(defaultRequest, response);
+                sinon.assert.calledWith(response.status, 422);
+            })
         })
-    })
+    });
 });
