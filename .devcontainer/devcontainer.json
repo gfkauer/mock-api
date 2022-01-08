@@ -3,7 +3,7 @@
   "name": "to-do API",
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
-  "workspaceFolder": "/workspace",
+  "workspaceFolder": "/to-do-API",
   // Set *default* container specific settings.json values on container create.
   "settings": {
     "terminal.integrated.profiles.windows": {
