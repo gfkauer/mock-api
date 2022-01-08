@@ -83,4 +83,23 @@ describe('Routes: Products', () => {
             });
         });
     });
+
+    describe('PUT /products/:id', () => {
+        context('when editing a product', () => {
+            it('should update the product and return 200 as status code', done => {
+                const customProduct = {
+                    name: 'Custom Name'
+                };
+                const updateProduct = Object.assign({}, customProduct, defaultProduct);
+
+                request
+                    .put(`/product/${defaultId}`)
+                    .send(updateProduct)
+                    .end((err, res) => {
+                        expect(res.status).to.eql(200);
+                        done(err);
+                    });
+            });
+        });
+    });
 });
