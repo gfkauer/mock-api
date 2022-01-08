@@ -93,7 +93,7 @@ describe('Routes: Products', () => {
                 const updateProduct = Object.assign({}, customProduct, defaultProduct);
 
                 request
-                    .put(`/product/${defaultId}`)
+                    .put(`/products/${defaultId}`)
                     .send(updateProduct)
                     .end((err, res) => {
                         expect(res.status).to.eql(200);
@@ -102,4 +102,17 @@ describe('Routes: Products', () => {
             });
         });
     });
+
+    describe('DELETE() /products/:id', () => {
+        context('when deleting a product', () => {
+            it('should delete the product and return 204 as status code', done => {
+                request
+                    .delete(`/products/${defaultId}`)
+                    .end((err, res) => {
+                        expect(res.status).to.eql(200);
+                        done(err);
+                    });
+            });
+        })
+    })
 });

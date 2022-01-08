@@ -9,5 +9,6 @@ router.get('/', (req, res) => productsController.get(req, res));
 router.get('/:id', (req, res) => productsController.getById(req, res));
 router.post('/', (req, res) => productsController.create(req, res));
 router.put('/:id', (res, req) => productsController.update(res, req));
+router.delete('/:id', (res, req) => productsController.remove(res, req));
 
 export default router;
