@@ -1,4 +1,5 @@
 import User from '../../../src/models/user';
+import AuthService from '../../../src/services/auth';
 
 describe('Routes: Users', () => {
     const defaultId = '56cb91bdc3464f14678934ca';
@@ -14,6 +15,7 @@ describe('Routes: Users', () => {
         email: 'jhon@mail.com',
         role: 'admin'
     };
+    const authToken = AuthService.generateToken(expectedAdminUser);
 
     beforeEach(async () => {
         const user = new User(defaultAdmin);
@@ -28,6 +30,7 @@ describe('Routes: Users', () => {
         it('should return a list of users', done => {
             request
                 .get('/users')
+                .set({ 'x-access-token': authToken })
                 .end((err, res) => {
                     expect(res.body).to.eql([expectedAdminUser]);
                     done(err);
@@ -38,6 +41,7 @@ describe('Routes: Users', () => {
             it('should return 200 with one user', done => {
                 request
                     .get(`/users/${defaultId}`)
+                    .set({ 'x-access-token': authToken })
                     .end((err, res) => {
                         expect(res.statusCode).to.eql(200);
                         expect(res.body).to.eql([expectedAdminUser]);
@@ -65,6 +69,7 @@ describe('Routes: Users', () => {
 
                 request
                     .post('/users')
+                    .set({ 'x-access-token': authToken })
                     .send(newUser)
                     .end((err, res) => {
                         expect(res.statusCode).to.eql(201);
@@ -85,6 +90,7 @@ describe('Routes: Users', () => {
 
                 request
                     .put(`/users/${defaultId}`)
+                    .set({ 'x-access-token': authToken })
                     .send(updatedUser)
                     .end((err, res) => {
                         expect(res.status).to.eql(200);
@@ -99,8 +105,42 @@ describe('Routes: Users', () => {
             it('should delete an user and return 204 as status code', done => {
                 request
                     .delete(`/users/${defaultId}`)
+                    .set({ 'x-access-token': authToken })
                     .end((err, res) => {
                         expect(res.status).to.eql(204);
+                        done(err);
+                    });
+            });
+        });
+    });
+
+    describe('POST /users/login', () => {
+        context('when authentication an user', () => {
+            it('should generate a valid token', done => {
+                request
+                    .post('/users/login')
+                    .set({ 'x-access-token': authToken })
+                    .send({
+                        email: 'jhon@mail.com',
+                        password: '123password'
+                    })
+                    .end((err, res) => {
+                        expect(res.body).to.have.key('token');
+                        expect(res.status).to.eql(200);
+                        done(err);
+                    });
+            });
+
+            it('should return unauthorized when the password does not match', done => {
+                request
+                    .post('/users/login')
+                    .set({ 'x-access-token': authToken })
+                    .send({
+                        email: 'jhon@mail.com',
+                        password: 'wrongPassword'
+                    })
+                    .end((err, res) => {
+                        expect(res.status).to.eql(401);
                         done(err);
                     });
             });
