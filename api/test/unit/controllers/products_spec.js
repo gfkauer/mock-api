@@ -12,6 +12,7 @@ describe('Controllers: Products', () => {
     const defaultRequest = {
         params: {}
     };
+    const fakeId = 'any-fake-id';
 
     describe('get() products', () => {
         it('should return a list of products', async () => {
@@ -48,7 +49,6 @@ describe('Controllers: Products', () => {
 
     describe('getById()', () => {
         it('should return one product', async () => {
-            const fakeId = 'any-fake-id';
             const request = {
                 params: {
                     id: fakeId
@@ -122,7 +122,6 @@ describe('Controllers: Products', () => {
 
     describe('update() product', () => {
         it('should respond with 200 when the product has been updated', async () => {
-            const fakeId = 'a-fake-id';
             const updatedProduct = {
                 _id: fakeId,
                 name: 'Updated product',
@@ -156,7 +155,6 @@ describe('Controllers: Products', () => {
 
         context('when an error ocurs', () => {
             it('should return 422', async () => {
-                const fakeId = 'a-fake-id';
                 const updatedProduct = {
                     _id: fakeId,
                     name: 'Updated product',
@@ -195,7 +193,6 @@ describe('Controllers: Products', () => {
 
     describe('delete() product', () => {
         it('should respond with 204 when the product has been deleted', async () => {
-            const fakeId = 'a-fake-id';
             const request = {
                 params: {
                     id: fakeId
@@ -220,7 +217,6 @@ describe('Controllers: Products', () => {
 
         context('when an error occurs', () => {
             it('should responde with 400', async () => {
-                const fakeId = 'a-fake-id';
                 const request = {
                     params: {
                         id: fakeId

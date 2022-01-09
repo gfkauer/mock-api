@@ -16,14 +16,6 @@ describe('Routes: Products', () => {
         price: 100
     };
 
-    let request;
-    let app;
-
-    before(async () => {
-        app = await setupApp();
-        request = supertest(app);
-    });
-
     beforeEach(async () => {
         await Product.deleteMany();
 
@@ -32,7 +24,6 @@ describe('Routes: Products', () => {
         return await product.save();
     });
 
-    after(async () => await app.database.connection.close());
     afterEach(async () => await Product.deleteMany());
 
     describe('GET /products', () => {
